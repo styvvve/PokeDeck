@@ -8,18 +8,25 @@
 import Foundation
 import SwiftUI
 
-struct Carte: Identifiable, Equatable {
+class Carte: Identifiable {
     let id =  UUID()
-    let nom: String
-    let type: [String]
-    let image: Image
-    let color: Color //associe une couleur 
-    let rarete: String
-    let numero: Int //numero de la carte dans le set
-    let set: String //set auquel elle appartient
-    let prix: Float
-    let pv: Int
-    let attaques: [String]
+    var nom: String
+    var type: [Types]
+    var image: Image
+    var color: Color //associe une couleur
+    var rarete: echelleRarete
+    var prix: Float
+    var dateAcquisition: Date
+    
+    init(nom: String, type: [Types], image: Image, color: Color, rarete: echelleRarete, prix: Float, dateAcquisition: Date) {
+        self.nom = nom
+        self.type = type
+        self.image = image
+        self.color = color
+        self.rarete = rarete
+        self.prix = prix
+        self.dateAcquisition = dateAcquisition
+    }
 }
 
 
@@ -31,18 +38,15 @@ struct Carte: Identifiable, Equatable {
 //definition de quatre cartes (les starters de la 1ere gene + pikachu)
 let pikachu =  Carte(
     nom: "Pikachu",
-    type: [pokemonTypes[4]],
+    type: [Types.electrique],
     image: Image("default_image"),
     color: Color(.yellow),
-    rarete: echelle_rarete[0],
-    numero: 25,
-    set: "Base Set",
+    rarete: echelleRarete.commune,
     prix: 2,
-    pv: 40,
-    attaques: ["Éclair", "Queue de fer"]
+    dateAcquisition: Calendar.current.date(byAdding: .year, value: -1, to: Date())!
 )
 
-let florizarre = Carte(
+/*let florizarre = Carte(
     nom: "Florizarre",
     type: [pokemonTypes[3], pokemonTypes[7]],
     image: Image("default_image"),
@@ -79,4 +83,4 @@ let tortank = Carte(
     prix: 60.0, // Prix fictif
     pv: 160, // Points de vie fictifs
     attaques: ["Hydrocanon", "Tunnel", "Morsure", "Canon d'Eau"]
-)
+)*/

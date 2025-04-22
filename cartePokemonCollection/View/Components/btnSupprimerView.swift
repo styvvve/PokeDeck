@@ -14,7 +14,7 @@ struct btnSupprimerView: View {
     
     var body: some View {
         Button {
-            myCollection.remove(at: myCollection.firstIndex(of: carte)!)
+            
         }label: {
             Image(systemName: "trash.fill")
                 .padding()

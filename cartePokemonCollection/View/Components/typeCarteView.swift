@@ -17,13 +17,13 @@ struct typeCarteView: View {
                 .font(.system(size: 20))
                 .bold()
             Spacer()
-            ForEach(carte.type, id: \.self) { typ in
+            /*ForEach(carte.type, id: \.self) { typ in
                 afficherTypeView(color: couleurPokemonTypes[typ] ?? .gray, type: typ)
-            }
+            }*/
         }.padding(.horizontal, 10)
     }
 }
 
 #Preview {
-    typeCarteView(carte: florizarre)
+    typeCarteView(carte: pikachu)
 }

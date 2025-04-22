@@ -12,17 +12,8 @@ struct displayTypesInHorizontalScrollView: View {
     @Binding var typeSelectionne: [String]
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(pokemonTypes, id: \.self) { typ in
-                    afficherTypeView(color: couleurPokemonTypes[typ] ?? .gray, type: typ)
-                        .onTapGesture {
-                            ajouterOuSupprimer(typ)
-                            print(typeSelectionne)
-                        }
-                        .opacity(isSelectionned(typ) ? 1 : 0.5)
-                }
-            }.padding(.horizontal, 10)
+        HStack {
+            
         }
     }
     

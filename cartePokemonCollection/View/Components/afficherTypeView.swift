@@ -27,6 +27,6 @@ struct afficherTypeView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     afficherTypeView(color: .yellow, type: pokemonTypes[4])
-}
+}*/

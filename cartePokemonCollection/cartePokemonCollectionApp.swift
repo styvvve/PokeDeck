@@ -11,7 +11,7 @@ import SwiftUI
 struct cartePokemonCollectionApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(myCollection: [pikachu], typeSelectionne: [], searchText: "", carte: pikachu)
+            ContentView()
         }
     }
 }
