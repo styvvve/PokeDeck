@@ -9,12 +9,87 @@ import SwiftUI
 
 struct ajouterCarteView: View {
     
-    
+    @State var nom = ""
+    @State var types: [Types] = []
+    @State var image: Image? = nil
+    @State var color: Color = .gray
+    @State var rarete: echelleRarete = .commune
+    @State var prix: Float = 1.0
+    @State private var prixEnString = "1.0" //pour recuperer le prix dans le textField
+    @State var dateAcquisition: Date = Date()
     
     
     var body: some View {
-        VStack {
-            
+        NavigationView {
+            ScrollView {
+                VStack {
+                    VStack(alignment: .leading) {
+                        Text("Nom de la carte")
+                        TextField("Pikachu", text: $nom)
+                            .padding()
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .padding()
+                    VStack(alignment: .leading){
+                        Text("Rareté de la carte")
+                            .padding(.horizontal)
+                        RareteEnScrollview(niveauRareteSelectionne: $rarete)
+                    }
+                    .padding(.vertical)
+                    HStack {
+                        Text("Couleur de la carte")
+                        Spacer()
+                        ColorPicker("", selection: $color)
+                    }
+                    .padding()
+                    HStack {
+                        Text("Date d'acquisition")
+                        Spacer()
+                        DatePicker("", selection: $dateAcquisition)
+                    }
+                    .padding()
+                    HStack {
+                        Text("Valeur")
+                        Spacer()
+                        TextField("", text: $prixEnString)
+                            .padding()
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: 100)
+                            .keyboardType(.decimalPad)
+                            .onChange(of: prixEnString) { newValue, _ in
+                                if let number = Float(newValue.replacingOccurrences(of: ",", with: ".")) {
+                                    prix = number
+                                }
+                            }
+                    }
+                    .padding()
+                    VStack(alignment: .leading) {
+                        Text("Type(s) (jusqu'à trois types")
+                        TypesGridView(typeSelectionne: $types)
+                    }
+                    .padding()
+                    
+                    VStack {
+                        Button {
+                            
+                        }label: {
+                            Text("Ajouter une carte")
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.accentColor)
+                                .foregroundStyle(.white)
+                                .bold()
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                    }
+                    .padding()
+                }
+                
+                
+            }
+            .navigationTitle(Text("Ajouter une carte"))
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI 
 
 enum echelleRarete: Int, Codable, CaseIterable, Comparable {
     case commune = 1, peuCommune, rare, epique, legendaire, ultraRare
@@ -24,6 +25,23 @@ enum echelleRarete: Int, Codable, CaseIterable, Comparable {
             return "Légendaire"
         case .ultraRare:
             return "Ultra-rare"
+        }
+    }
+    
+    var getColor: Color {
+        switch self {
+        case .commune:
+            return .gray.opacity(0.5)
+        case .peuCommune:
+            return .green
+        case .rare:
+            return .blue
+        case .epique:
+            return .purple
+        case .legendaire:
+            return .orange
+        case .ultraRare:
+            return .red
         }
     }
     

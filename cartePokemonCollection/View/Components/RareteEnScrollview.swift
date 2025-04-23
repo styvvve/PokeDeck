@@ -8,11 +8,35 @@
 import SwiftUI
 
 struct RareteEnScrollview: View {
+    
+    @Binding var niveauRareteSelectionne: echelleRarete
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(echelleRarete.allCases, id: \.self) { one in
+                    HStack {
+                        Text(one.localizedName)
+                            .bold()
+                        
+                    }
+                    .padding()
+                    .background(isSelectionned(one) ? one.getColor : one.getColor.opacity(0.3))
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .onTapGesture {
+                        niveauRareteSelectionne = one
+                    }
+                }
+            }
+        }
+    }
+    
+    //MARK: private subviews
+    func isSelectionned(_ elt: echelleRarete) -> Bool {
+        return elt == niveauRareteSelectionne
     }
 }
 
 #Preview {
-    RareteEnScrollview()
+    RareteEnScrollview(niveauRareteSelectionne: .constant(.commune))
 }

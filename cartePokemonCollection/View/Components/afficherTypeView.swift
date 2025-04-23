@@ -12,14 +12,13 @@ import SwiftUI
 
 struct afficherTypeView: View {
     
-    let color: Color
-    let type: String
+    var type: Types
     
     var body: some View {
-        Text(type)
+        Text(type.localizedName)
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .background(color)
+            .background(type.color)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .foregroundStyle(.white)
             .font(.system(size: 14))
@@ -27,6 +26,6 @@ struct afficherTypeView: View {
     }
 }
 
-/*#Preview {
-    afficherTypeView(color: .yellow, type: pokemonTypes[4])
-}*/
+#Preview {
+    afficherTypeView(type: .dragon)
+}
