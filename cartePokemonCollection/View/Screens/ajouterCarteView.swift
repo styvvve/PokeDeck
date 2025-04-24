@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct ajouterCarteView: View {
     
@@ -18,11 +19,36 @@ struct ajouterCarteView: View {
     @State private var prixEnString = "1.0" //pour recuperer le prix dans le textField
     @State var dateAcquisition: Date = Date()
     
+    //photo
+    @State private var showCamera = false
+    @State private var isPhotoPickerPresented: Bool = false
+    @State private var pickerItem: PhotosPickerItem?
+    
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
+                    VStack {
+                        Menu {
+                            Button("Prendre une photo", action: {
+                                showCamera = true
+                            })
+                            Button("Choisir dans la photothèque", action: {
+                                isPhotoPickerPresented = true
+                            })
+                        }label: {
+                            ZStack(alignment: .center) {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(width: 150, height: 200)
+                                
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.largeTitle)
+                            }
+                            .padding()
+                        }
+                    }
                     VStack(alignment: .leading) {
                         Text("Nom de la carte")
                         TextField("Pikachu", text: $nom)
@@ -66,7 +92,7 @@ struct ajouterCarteView: View {
                     }
                     .padding()
                     VStack(alignment: .leading) {
-                        Text("Type(s) (jusqu'à trois types")
+                        Text("Type(s) (jusqu'à trois types)")
                         TypesGridView(typeSelectionne: $types)
                     }
                     .padding()
@@ -90,6 +116,20 @@ struct ajouterCarteView: View {
                 
             }
             .navigationTitle(Text("Ajouter une carte"))
+        }
+        .sheet(isPresented: $showCamera, content: {
+            CameraView { pickedImage in
+                if let uiImage = pickedImage {
+                    image = Image(uiImage: uiImage)
+                }
+                showCamera = false
+            }
+        })
+        .photosPicker(isPresented: $isPhotoPickerPresented, selection: $pickerItem, matching: .images)
+        .onChange(of: pickerItem) {
+            Task {
+                image = try await pickerItem?.loadTransferable(type: Image.self)
+            }
         }
     }
 }

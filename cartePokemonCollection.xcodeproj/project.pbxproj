@@ -399,6 +399,8 @@
 				DEVELOPMENT_TEAM = 97VPU3Y33R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Collection souhaite accéder à votre caméra";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Collection souhaite accéder à votre librairie de photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +430,8 @@
 				DEVELOPMENT_TEAM = 97VPU3Y33R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Collection souhaite accéder à votre caméra";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Collection souhaite accéder à votre librairie de photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
