@@ -10,8 +10,18 @@ import SwiftUI
 struct HomeView: View {
     
     var body: some View {
-        VStack {
+        TabView {
+            Tab("Cartes", systemImage: "rectangle.fill.on.rectangle.fill") {
+                
+            }
             
+            Tab("Collections", systemImage: "books.vertical.fill") {
+                
+            }
+            
+            Tab("Plus", systemImage: "ellipsis") {
+                
+            }
         }
     }
 }

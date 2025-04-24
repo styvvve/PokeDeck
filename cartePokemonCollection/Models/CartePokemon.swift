@@ -7,25 +7,41 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
+@Model
 class Carte: Identifiable {
-    let id =  UUID()
+    @Attribute(.unique) var id =  UUID()
     var nom: String
     var type: [Types]
-    var image: Image
-    var color: Color //associe une couleur
     var rarete: echelleRarete
     var prix: Float
     var dateAcquisition: Date
     
-    init(nom: String, type: [Types], image: Image, color: Color, rarete: echelleRarete, prix: Float, dateAcquisition: Date) {
+    //on passera par des propriétes calculees
+    var imageData: Data?
+    var colorHex: String
+    
+    var image: Image {
+        if let data = imageData, let uiImage = UIImage(data: data) {
+            return Image(uiImage: uiImage)
+        }else {
+            return Image(systemName: "photo")
+        }
+    }
+    
+    var color: Color {
+        Color(hex: colorHex) ?? .gray
+    }
+    
+    init(nom: String, type: [Types], rarete: echelleRarete, prix: Float, dateAcquisition: Date, image: UIImage?, color: Color) {
         self.nom = nom
         self.type = type
-        self.image = image
-        self.color = color
         self.rarete = rarete
         self.prix = prix
         self.dateAcquisition = dateAcquisition
+        self.imageData = image?.jpegData(compressionQuality: 1.0)
+        self.colorHex = color.toHex() ?? "#FFFFFF"
     }
 }
 
@@ -38,12 +54,12 @@ class Carte: Identifiable {
 //definition de quatre cartes (les starters de la 1ere gene + pikachu)
 let pikachu =  Carte(
     nom: "Pikachu",
-    type: [Types.electrique],
-    image: Image("default_image"),
-    color: Color(.yellow),
-    rarete: echelleRarete.commune,
-    prix: 2,
-    dateAcquisition: Calendar.current.date(byAdding: .year, value: -1, to: Date())!
+    type: [.electrique],
+    rarete: .commune,
+    prix: 2.00,
+    dateAcquisition: Date(timeIntervalSince1970: 1714600000),
+    image: UIImage(named: "pikachu-image"),
+    color: Color.yellow
 )
 
 /*let florizarre = Carte(
