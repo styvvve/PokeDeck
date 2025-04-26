@@ -24,6 +24,8 @@ struct ajouterCarteView: View {
     @State private var isPhotoPickerPresented: Bool = false
     @State private var pickerItem: PhotosPickerItem?
     
+    @Environment(\.dismiss) var dismiss
+    
     
     var body: some View {
         NavigationView {
@@ -116,6 +118,13 @@ struct ajouterCarteView: View {
                 
             }
             .navigationTitle(Text("Ajouter une carte"))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Annuler") {
+                        dismiss()
+                    }
+                }
+            }
         }
         .sheet(isPresented: $showCamera, content: {
             CameraView { pickedImage in
