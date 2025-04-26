@@ -62,41 +62,24 @@ let pikachu =  Carte(
     color: Color.yellow
 )
 
-/*let florizarre = Carte(
-    nom: "Florizarre",
-    type: [pokemonTypes[3], pokemonTypes[7]],
-    image: Image("default_image"),
-    color: .green,
-    rarete: echelle_rarete[4],
-    numero: 3,
-    set: "Kanto",
-    prix: 50.0, // Prix fictif
-    pv: 150, // Points de vie fictifs
-    attaques: ["Fouet Liane", "Lance-Soleil", "Drap-Nature", "Toxic"]
-)
-
-let dracaufeu = Carte(
-    nom: "Dracaufeu",
-    type: [pokemonTypes[1], pokemonTypes[9]],
-    image: Image("default_image"),
-    color: .orange,
-    rarete: echelle_rarete[3],
-    numero: 6,
-    set: "Kanto",
-    prix: 80.0, // Prix fictif
-    pv: 180, // Points de vie fictifs
-    attaques: ["Flamèche", "Lance-Flamme", "Colère", "Surtension"]
-)
-
-let tortank = Carte(
-    nom: "Tortank",
-    type: [pokemonTypes[2]],
-    image: Image("default_image"),
-    color: .blue,
-    rarete: echelle_rarete[2],
-    numero: 9, 
-    set: "Kanto",
-    prix: 60.0, // Prix fictif
-    pv: 160, // Points de vie fictifs
-    attaques: ["Hydrocanon", "Tunnel", "Morsure", "Canon d'Eau"]
-)*/
+let mocks = [
+    pikachu,
+    Carte(
+        nom: "Dracaufeu",
+        type: [.feu],
+        rarete: .rare,
+        prix: 200.00,
+        dateAcquisition: Date(timeIntervalSince1970: 1714600000),
+        image: UIImage(named: "default_image"),
+        color: Color.red
+    ),
+    Carte(
+        nom: "Tortank",
+        type: [.eau],
+        rarete: .peuCommune,
+        prix: 15.00,
+        dateAcquisition: Date(timeIntervalSince1970: 1714600000),
+        image: UIImage(named: "default_image"),
+        color: Color.blue
+    )
+]

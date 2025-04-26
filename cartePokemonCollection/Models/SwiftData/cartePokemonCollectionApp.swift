@@ -13,5 +13,6 @@ struct cartePokemonCollectionApp: App {
         WindowGroup {
             HomeView()
         }
+        .modelContainer(for: Carte.self)
     }
 }
