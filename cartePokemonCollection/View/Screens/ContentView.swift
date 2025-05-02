@@ -12,7 +12,7 @@ struct HomeView: View {
     var body: some View {
         TabView {
             Tab("Cartes", systemImage: "rectangle.fill.on.rectangle.fill") {
-                
+                CardView()
             }
             
             Tab("Collections", systemImage: "books.vertical.fill") {

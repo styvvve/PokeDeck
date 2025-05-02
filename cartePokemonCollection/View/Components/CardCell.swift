@@ -15,26 +15,37 @@ struct CardCell: View {
         HStack {
             card.image
                 .resizable()
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .frame(width: 100, height: 150)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 1)
+                )
             
             VStack(alignment: .leading) {
                 Text(card.nom)
                     .font(.title)
                     .bold()
-                Text("Rareté : \(card.rarete)")
-                    .foregroundStyle(.gray)
-                HStack {
-                    ForEach(card.type, id: \.self) { typ in
-                        afficherTypeView(type: typ)
-                    }
-                }
+                    .foregroundStyle(.black)
+                Text(card.rarete.localizedName)
+                    .padding()
+                    .bold()
+                    .background(card.rarete.getColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
             }
             .padding(.horizontal)
             .offset(y: -15)
             
             Spacer()
+            Image(systemName: "chevron.right")
+                .font(.system(size: 28))
+                .foregroundStyle(.black)
+           
         }
-        .padding(.horizontal)
+        .padding()
+        .background(card.color)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding()
     }
 }
 

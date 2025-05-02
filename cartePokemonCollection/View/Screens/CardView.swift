@@ -11,7 +11,7 @@ import SwiftData
 struct CardView: View {
     
     @Environment(\.modelContext) var modelContext
-    @State private var cartes: [Carte] = []
+    @Query private var cartes: [Carte]
     
     
     //pour la recherche
@@ -33,7 +33,7 @@ struct CardView: View {
                     }else {
                         ForEach(cartesFiltrees, id: \.self) { carte in
                             NavigationLink {
-                                
+                                OneCardView(carte: carte)
                             }label: {
                                 CardCell(card: carte)
                             }
@@ -53,9 +53,6 @@ struct CardView: View {
                 }
             }
         }
-        .onAppear {
-            fetchCartes()
-        }
         .sheet(isPresented: $isAddingCardScreenPresenting) {
             ajouterCarteView()
         }
@@ -70,14 +67,14 @@ struct CardView: View {
         }
     }
     
-    func fetchCartes() {
+    /*func fetchCartes() {
         do {
             let descriptor = FetchDescriptor<Carte>(sortBy: [SortDescriptor(\.dateAcquisition)])
             cartes = try modelContext.fetch(descriptor)
         }catch {
             print("Erreur de fetch \(error.localizedDescription)")
         }
-    }
+    }*/
 }
 
 #Preview {

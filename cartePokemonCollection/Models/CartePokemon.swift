@@ -26,7 +26,7 @@ class Carte: Identifiable {
         if let data = imageData, let uiImage = UIImage(data: data) {
             return Image(uiImage: uiImage)
         }else {
-            return Image(systemName: "photo")
+            return Image(systemName: "default_image")
         }
     }
     
@@ -42,6 +42,13 @@ class Carte: Identifiable {
         self.dateAcquisition = dateAcquisition
         self.imageData = image?.jpegData(compressionQuality: 1.0)
         self.colorHex = color.toHex() ?? "#FFFFFF"
+    }
+    
+    var dateFormattee: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy à HH:mm"
+        formatter.locale = Locale(identifier: "fr_FR")
+        return formatter.string(from: dateAcquisition)
     }
 }
 

@@ -12,7 +12,7 @@ struct ajouterCarteView: View {
     
     @State var nom = ""
     @State var types: [Types] = []
-    @State var image: Image? = nil
+    @State var image: UIImage? = nil
     @State var color: Color = .gray
     @State var rarete: echelleRarete = .commune
     @State var prix: Float = 1.0
@@ -25,6 +25,7 @@ struct ajouterCarteView: View {
     @State private var pickerItem: PhotosPickerItem?
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var context
     
     
     var body: some View {
@@ -101,7 +102,11 @@ struct ajouterCarteView: View {
                     
                     VStack {
                         Button {
-                            
+                            let nouvelleCarte = Carte(nom: nom, type: types, rarete: rarete, prix: prix, dateAcquisition: dateAcquisition, image: image, color: color)
+                            context.insert(nouvelleCarte)
+                            try? context.save()
+                            print("Nouvelle carte : \(nouvelleCarte.nom)")
+                            dismiss()
                         }label: {
                             Text("Ajouter une carte")
                                 .padding()
@@ -114,6 +119,7 @@ struct ajouterCarteView: View {
                     }
                     .padding()
                 }
+                .padding()
                 
                 
             }
@@ -129,7 +135,7 @@ struct ajouterCarteView: View {
         .sheet(isPresented: $showCamera, content: {
             CameraView { pickedImage in
                 if let uiImage = pickedImage {
-                    image = Image(uiImage: uiImage)
+                    image = uiImage
                 }
                 showCamera = false
             }
@@ -137,7 +143,9 @@ struct ajouterCarteView: View {
         .photosPicker(isPresented: $isPhotoPickerPresented, selection: $pickerItem, matching: .images)
         .onChange(of: pickerItem) {
             Task {
-                image = try await pickerItem?.loadTransferable(type: Image.self)
+                if let loadData = try await pickerItem?.loadTransferable(type: Data.self), let loadedImage = UIImage(data: loadData){
+                    image = loadedImage
+                }
             }
         }
     }
