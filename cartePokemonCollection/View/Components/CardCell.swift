@@ -13,25 +13,26 @@ struct CardCell: View {
     
     var body: some View {
         HStack {
-            card.image
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .frame(width: 100, height: 150)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 1)
-                )
-            
+            VStack {
+                card.image
+                    .resizable()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .frame(width: 75, height: 100)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 1)
+                    )
+                    .shadow(radius: 5)
+            }
             VStack(alignment: .leading) {
                 Text(card.nom)
                     .font(.title)
                     .bold()
                     .foregroundStyle(.black)
+                    .padding(.top)
+                Divider()
                 Text(card.rarete.localizedName)
-                    .padding()
                     .bold()
-                    .background(card.rarete.getColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
             }
             .padding(.horizontal)
             .offset(y: -15)
@@ -43,9 +44,10 @@ struct CardCell: View {
            
         }
         .padding()
-        .background(card.color)
+        .background(.white)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding()
+        .shadow(radius: 5)
     }
 }
 

@@ -13,6 +13,8 @@ struct CardView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var cartes: [Carte]
     
+    @State private var typeSelectionne: [Types] = []
+    
     
     //pour la recherche
     @State private var searchText: String = ""
@@ -24,12 +26,19 @@ struct CardView: View {
         NavigationView {
             ScrollView {
                 VStack {
+                    displayTypesInHorizontalScrollView(typeSelectionne: $typeSelectionne)
                     if cartesFiltrees.isEmpty {
                         Text("Aucune carte dans la galerie\nAjoutez une carte en cliquant sur le bouton +")
                             .multilineTextAlignment(.center)
                             .font(.callout)
                             .italic()
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(.black)
+                    } else if typeSelectionne.isEmpty {
+                        Text("Sélectionnez un type")
+                            .multilineTextAlignment(.center)
+                            .font(.callout)
+                            .italic()
+                            .foregroundStyle(.black)
                     }else {
                         ForEach(cartesFiltrees, id: \.self) { carte in
                             NavigationLink {
@@ -41,6 +50,7 @@ struct CardView: View {
                     }
                 }
             }
+            .background(Color(UIColor.systemGray2))
             .navigationTitle(Text("Cartes"))
             .searchable(text: $searchText, prompt: "Rechercher une carte")
             .toolbar {

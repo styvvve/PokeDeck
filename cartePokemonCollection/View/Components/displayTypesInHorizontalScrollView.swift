@@ -9,30 +9,53 @@ import SwiftUI
 
 struct displayTypesInHorizontalScrollView: View {
     
-    @Binding var typeSelectionne: [String]
+    @Binding var typeSelectionne: [Types]
+    @State private var boutonTousActif: Bool = true
     
     var body: some View {
-        HStack {
-            
+        ScrollView(.horizontal) {
+            HStack {
+                AllTypesButton()
+                    .opacity(boutonTousActif ? 1 : 0.5)
+                    .onTapGesture {
+                        toggleBoutonTous()
+                    }
+                ForEach(Types.allCases, id: \.self) { typ in
+                    afficherTypeView(type: typ)
+                        .opacity(typeSelectionne.contains(typ) ? 1 : 0.5)
+                        .onTapGesture {
+                            if typeSelectionne.contains(typ) && boutonTousActif {
+                                typeSelectionne.remove(at: typeSelectionne.firstIndex(of: typ)!)
+                                boutonTousActif.toggle()
+                            } else if typeSelectionne.contains(typ) && !boutonTousActif {
+                                typeSelectionne.remove(at: typeSelectionne.firstIndex(of: typ)!)
+                            } else {
+                                typeSelectionne.append(typ)
+                            }
+                        }
+                }
+            }
+            .padding()
         }
-    }
-    
-    //fct pour verifier qu'un element est selectionne
-    func isSelectionned(_ elt: String) -> Bool {
-        for one in typeSelectionne {
-            if one == elt {
-                return true
+        .onAppear {
+            if boutonTousActif {
+                for typ in Types.allCases {
+                    typeSelectionne.append(typ)
+                }
             }
         }
-        return false
     }
     
-    //fonction lorque l'on clique sur un element
-    func ajouterOuSupprimer(_ elt: String) {
-        if isSelectionned(elt) {
-            typeSelectionne.remove(at: typeSelectionne.firstIndex(of: elt)!) //retourne un optionnel
+    private func toggleBoutonTous() -> Void {
+        if boutonTousActif {
+            typeSelectionne.removeAll()
+            boutonTousActif.toggle()
         }else {
-            typeSelectionne.append(elt)
+            //on met tous les types dans l'array
+            for typ in Types.allCases {
+                typeSelectionne.append(typ)
+            }
+            boutonTousActif.toggle()
         }
     }
 }

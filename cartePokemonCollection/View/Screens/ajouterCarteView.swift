@@ -132,7 +132,7 @@ struct ajouterCarteView: View {
                 }
             }
         }
-        .sheet(isPresented: $showCamera, content: {
+        .fullScreenCover(isPresented: $showCamera, content: {
             CameraView { pickedImage in
                 if let uiImage = pickedImage {
                     image = uiImage
